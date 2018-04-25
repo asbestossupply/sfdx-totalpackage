@@ -1,5 +1,5 @@
 {
-  "name": "totalPackage",
+  "name": "sfdx-totalpackage",
   "description": "Converts *all* the source in a Salesforce DX project into metadata that you can deploy using Metadata API",
   "version": "0.0.0",
   "author": "Noah Blumenthal",
@@ -8,7 +8,10 @@
     "@oclif/command": "^1.4.15",
     "@oclif/config": "^1.6.13",
     "@oclif/errors": "^1.0.6",
-    "@salesforce/command": "^0.1.1"
+    "@salesforce/command": "^0.1.1",
+    "fs-extra": "^5.0.0",
+    "tmp": "0.0.33",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.13.6",

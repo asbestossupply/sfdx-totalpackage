@@ -1,16 +1,16 @@
-totalPackage
+sfdx-totalpackage
 ============
 
 Converts *all* the source in a Salesforce DX project into metadata that you can deploy using Metadata API
 
-[![Version](https://img.shields.io/npm/v/totalPackage.svg)](https://npmjs.org/package/totalPackage)
-[![CircleCI](https://circleci.com/gh/litify/totalPackage/tree/master.svg?style=shield)](https://circleci.com/gh/litify/totalPackage/tree/master)
-[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/litify/totalPackage?branch=master&svg=true)](https://ci.appveyor.com/project/heroku/totalPackage/branch/master)
-[![Codecov](https://codecov.io/gh/litify/totalPackage/branch/master/graph/badge.svg)](https://codecov.io/gh/litify/totalPackage)
-[![Greenkeeper](https://badges.greenkeeper.io/litify/totalPackage.svg)](https://greenkeeper.io/)
-[![Known Vulnerabilities](https://snyk.io/test/github/litify/totalPackage/badge.svg)](https://snyk.io/test/github/litify/totalPackage)
-[![Downloads/week](https://img.shields.io/npm/dw/totalPackage.svg)](https://npmjs.org/package/totalPackage)
-[![License](https://img.shields.io/npm/l/totalPackage.svg)](https://github.com/litify/totalPackage/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/sfdx-totalpackage.svg)](https://npmjs.org/package/sfdx-totalpackage)
+[![CircleCI](https://circleci.com/gh/hackerhasid/sfdx-totalpackage/tree/master.svg?style=shield)](https://circleci.com/gh/hackerhasid/sfdx-totalpackage/tree/master)
+[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/hackerhasid/sfdx-totalpackage?branch=master&svg=true)](https://ci.appveyor.com/project/heroku/sfdx-totalpackage/branch/master)
+[![Codecov](https://codecov.io/gh/hackerhasid/sfdx-totalpackage/branch/master/graph/badge.svg)](https://codecov.io/gh/hackerhasid/sfdx-totalpackage)
+[![Greenkeeper](https://badges.greenkeeper.io/hackerhasid/sfdx-totalpackage.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/github/hackerhasid/sfdx-totalpackage/badge.svg)](https://snyk.io/test/github/hackerhasid/sfdx-totalpackage)
+[![Downloads/week](https://img.shields.io/npm/dw/sfdx-totalpackage.svg)](https://npmjs.org/package/sfdx-totalpackage)
+[![License](https://img.shields.io/npm/l/sfdx-totalpackage.svg)](https://github.com/hackerhasid/sfdx-totalpackage/blob/master/package.json)
 
 <!-- toc -->
 * [Debugging your plugin](#debugging-your-plugin)
@@ -18,45 +18,41 @@ Converts *all* the source in a Salesforce DX project into metadata that you can 
 <!-- install -->
 <!-- usage -->
 ```sh-session
-$ npm install -g totalPackage
-$ totalPackage COMMAND
+$ npm install -g sfdx-totalpackage
+$ sfdx-totalpackage COMMAND
 running command...
-$ totalPackage (-v|--version|version)
-totalPackage/0.0.0 darwin-x64 node-v9.3.0
-$ totalPackage --help [COMMAND]
+$ sfdx-totalpackage (-v|--version|version)
+sfdx-totalpackage/0.0.0 darwin-x64 node-v9.3.0
+$ sfdx-totalpackage --help [COMMAND]
 USAGE
-  $ totalPackage COMMAND
+  $ sfdx-totalpackage COMMAND
 ...
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`totalPackage hello:org [FILE]`](#total-package-helloorg-file)
+* [`sfdx-totalpackage source:convert -n my_package_name -d mdout`](#total-package-helloorg-file)
 
-## `totalPackage hello:org [FILE]`
+## `sfdx-totalpackage source:convert -n my_package_name -d mdout`
 
-Prints a greeting and your org id(s)!
+Converts *all* source in a Salesforce DX project into metadata that you can deploy using Metadata API.
 
 ```
 USAGE
-  $ totalPackage hello:org [FILE]
+  $ sfdx-totalpackage source:convert
 
 OPTIONS
-  -f, --force
-  -n, --name=name                                  name to print
-  -u, --targetusername=targetusername              username or alias for the target org; overrides default target org
-  -v, --targetdevhubusername=targetdevhubusername  username or alias for the dev hub org; overrides default dev hub org
-  --apiversion=apiversion                          override the api version used for api requests made by this command
+  -d, --outputdir=outputdir                         (required) The output directory to export the Metadata API–formatted metadata to.            
+  -n, --packagename=packagename                     The name of the package to associate with the Metadata API–formatted metadata.
   --json                                           format output as json
   --loglevel=(trace|debug|info|warn|error|fatal)   logging level for this command invocation
 
 EXAMPLES
-  $ sfdx hello:org --targetusername myOrg@example.com --targetdevhubusername devhub@org.com
-     Hello world! This is org: MyOrg and I will be around until Tue Mar 20 2018!
-     My hub org id is: 00Dxx000000001234
-  
-
-  $ sfdx hello:org --name myname --targetusername myOrg@example.com
-     Hello myname! This is org: MyOrg and I will be around until Tue Mar 20 2018!
+  $ sfdx-totalpackage source:convert -n my_package_name -d mdout
+    exec: sfdx force:source:convert -r force-app -d /var/folders/m1/sd25288s7b1569c78ll5gs680000gn/T/sfdx-totalpkg-29223wXrBLNo56E7E -n my_package_name
+    copying files from /var/folders/m1/sd25288s7b1569c78ll5gs680000gn/T/sfdx-totalpkg-29223wXrBLNo56E7E to mdout
+    exec: sfdx force:source:convert -r other_code_directory -d /var/folders/m1/sd25288s7b1569c78ll5gs680000gn/T/sfdx-totalpkg-292236xR8rhv7Nhpe -n my_package_name
+    copying files from /var/folders/m1/sd25288s7b1569c78ll5gs680000gn/T/sfdx-totalpkg-292236xR8rhv7Nhpe to mdout
+    writing combined package.xml to testout/package.xml
 ```
 
 _See code: [src/commands/hello/org.ts](https://github.com/hackerhasid/sfdx-totalpackage/blob/v0.0.0/src/commands/hello/org.ts)_

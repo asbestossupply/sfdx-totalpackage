@@ -30,7 +30,7 @@ jobs:
 
 workflows:
   version: 2
-  "totalPackage":
+  "sfdx-totalpackage":
     jobs:
       - node-latest
       - node-8

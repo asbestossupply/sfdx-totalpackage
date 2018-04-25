@@ -1,0 +1,6 @@
+{
+  "commandDescription": "Converts *all* source in a Salesforce DX project into metadata that you can deploy using Metadata API.",
+  "rootdirFlagDescription": "The directory that contains the Salesforce DX–formatted source to convert.",
+  "outputdirFlagDescription": "The output directory to export the Metadata API–formatted metadata to.",
+  "packagenameFlagDescription": "The name of the package to associate with the Metadata API–formatted metadata."
+}
