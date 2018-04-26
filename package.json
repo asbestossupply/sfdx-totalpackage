@@ -1,7 +1,7 @@
 {
   "name": "sfdx-totalpackage",
   "description": "Converts *all* the source in a Salesforce DX project into metadata that you can deploy using Metadata API",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Noah Blumenthal",
   "bugs": "https://github.com/hackerhasid/sfdx-totalpackage/issues",
   "dependencies": {
@@ -36,6 +36,7 @@
   "files": [
     ".oclif.manifest.json",
     "/lib",
+    "/bin",
     "/messages"
   ],
   "bin": {
