@@ -1,7 +1,7 @@
 {
   "name": "sfdx-totalpackage",
   "description": "Converts *all* the source in a Salesforce DX project into metadata that you can deploy using Metadata API",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "author": "Noah Blumenthal",
   "bugs": "https://github.com/hackerhasid/sfdx-totalpackage/issues",
   "dependencies": {
@@ -38,6 +38,9 @@
     "/lib",
     "/messages"
   ],
+  "bin": {
+    "sfdx-totalpackage": "bin/run"
+  },
   "homepage": "https://github.com/hackerhasid/sfdx-totalpackage",
   "keywords": [
     "sfdx-plugin"

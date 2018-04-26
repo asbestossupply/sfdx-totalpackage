@@ -4,19 +4,18 @@ import {SfdxCommand, core} from '@salesforce/command';
 import * as tmp from 'tmp';
 import {execSync} from 'child_process';
 import {lstatSync, readdirSync, copySync, readFile, writeFile} from 'fs-extra';
-import { tmpdir } from 'os';
 import * as xml2js from 'xml2js';
 
 core.Messages.importMessagesDirectory(join(__dirname, '..', '..', '..'));
 const messages = core.Messages.loadMessages('sfdx-totalpackage', 'convert');
-const isDirectory = source => lstatSync(source).isDirectory();
+const isDirectory = (source) => lstatSync(source).isDirectory();
 
 export default class Convert extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx source:convert --outputdir mdapi --packagename mypkg`
+  '$ sfdx source:convert --outputdir mdapi --packagename mypkg'
   ];
 
   protected static flagsConfig = {
@@ -33,32 +32,31 @@ export default class Convert extends SfdxCommand {
     const config = await this.project.resolveProjectConfig();
     const xmlParser = new xml2js.Parser();
 
-    var combinedPackageData;
-    for (let elem of config['packageDirectories']) {
-      let path = elem['path'];
+    let combinedPackageData;
+    for (let elem of config['packageDirectories']) { // tslint:disable-line:prefer-const
+      const path = elem['path'];
       // run sfdx force:source:convert
-      var tmpDir = tmp.dirSync({prefix: 'sfdx-totalpkg-'});
-      var buildCmd = `sfdx force:source:convert -r ${path} -d ${tmpDir.name}`;
+      const tmpDir = tmp.dirSync({prefix: 'sfdx-totalpkg-'});
+      let buildCmd = `sfdx force:source:convert -r ${path} -d ${tmpDir.name}`;
       if (this.flags.packagename) {
-        buildCmd += ` -n ${this.flags.packagename}`
+        buildCmd += ` -n ${this.flags.packagename}`;
       }
       this.ux.log(`exec: ${buildCmd}`);
       execSync(buildCmd);
 
       // copy files to output dir
       this.ux.log(`copying files from ${tmpDir.name} to ${this.flags.outputdir}`);
-      var dirs = readdirSync(tmpDir.name).map(name => join(tmpDir.name, name)).filter(isDirectory);
-      readdirSync(tmpDir.name).forEach(localName => {
-        var fullPath = join(tmpDir.name, localName)
+      readdirSync(tmpDir.name).forEach((localName) => {
+        const fullPath = join(tmpDir.name, localName);
         if (!isDirectory(fullPath)) {
           return;
         }
         copySync(fullPath, join(this.flags.outputdir, localName));
-      })
+      });
 
       // merge package.xml with that from output dir
-      var pkgFileContents = await readFile(join(tmpDir.name, 'package.xml'));
-      var pkgData = await new Promise((resolve, reject) => {
+      const pkgFileContents = await readFile(join(tmpDir.name, 'package.xml'));
+      const pkgData = await new Promise((resolve, reject) => {
         xmlParser.parseString(pkgFileContents, function(err, result) {
           if (err) {
             reject(err);
@@ -72,14 +70,14 @@ export default class Convert extends SfdxCommand {
         combinedPackageData = pkgData;
       } else {
         // add to combined package data
-        pkgData['Package']['types'].forEach(t => {
+        pkgData['Package']['types'].forEach((t) => {
           // get type from combinedPackageData
-          let combinedType = combinedPackageData['Package']['types'].find(x => x['name'][0] == t['name'][0]);
+          const combinedType = combinedPackageData['Package']['types'].find((x) => x['name'][0] === t['name'][0]);
           let combinedMembers = combinedType ? combinedType.members : [];
           combinedMembers = combinedMembers.concat(t.members);
           combinedMembers = Array.from(new Set(combinedMembers));
           combinedType.members = combinedMembers;
-        })
+        });
       }
     }
 
@@ -87,10 +85,10 @@ export default class Convert extends SfdxCommand {
     const outputPackageXmlPath = join(this.flags.outputdir, 'package.xml');
     this.ux.log(`writing combined package.xml to ${outputPackageXmlPath}`);
 
-    var builder = new xml2js.Builder({standalone: undefined});
-    var xml = builder.buildObject(combinedPackageData);
+    const builder = new xml2js.Builder({standalone: undefined});
+    const xml = builder.buildObject(combinedPackageData);
     await writeFile(outputPackageXmlPath, xml);
 
-    return {pkgData: combinedPackageData}
+    return {pkgData: combinedPackageData};
   }
 }

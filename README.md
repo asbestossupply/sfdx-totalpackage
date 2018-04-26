@@ -1,7 +1,7 @@
 sfdx-totalpackage
 ============
 
-Converts *all* the source in a Salesforce DX project into metadata that you can deploy using Metadata API
+The built-in `sfdx force:source:convert` command converts only a single source directory into Metadata API format. This plugin converts *all* the source in a Salesforce DX project (as defined in the `sfdx-project.json` file' `packageDirectories` into metadata that you can deploy using Metadata API.
 
 [![Version](https://img.shields.io/npm/v/sfdx-totalpackage.svg)](https://npmjs.org/package/sfdx-totalpackage)
 [![CircleCI](https://circleci.com/gh/hackerhasid/sfdx-totalpackage/tree/master.svg?style=shield)](https://circleci.com/gh/hackerhasid/sfdx-totalpackage/tree/master)
